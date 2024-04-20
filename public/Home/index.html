@@ -1,63 +1,20 @@
 <!DOCTYPE html>
-<!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-
-    <link rel="stylesheet" href="home.css">
-    <title>Expenses</title>
-  </head>
-  <body> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" type="text/css" href="home.css">
+</head>
+<body>
     <div class="container">
-        <div class="buy-premium">
-            <!-- Button to initiate Razorpay payment -->
-            <button id="buyButton" class="button" font-family="cursive">Buy Premium 💎</button>        
+        <ul id="messages"></ul>
+        <div>
+            <input id="message" type="text" placeholder="Type your message...">
+            <button id="send">Send</button>
         </div>
-        <br>
-        <div class="report">
-            <!-- Button to initiate Razorpay payment -->
-            <button id="report" class="button" font-family="cursive">Report 📋</button>        
-        </div>
-        <form class="expense-form" onsubmit="addExpense(event)">
-            <div class="input-container">
-                <label for="Expense" class="form-label">Choose Expense Amount: </label>
-                <input type="text" id="text1" class="form-control" name="amount" required>
-            </div>
-            
-            <br>
-            <div class="input-container">
-                <label for="description">Choose Description: </label>
-                <input type="text" id="text2" class="form-control" name="description" required>
-            </div>
-            
-            <br>
-            <div class="input-container-drop-down">
-                <label for="Category">Choose a Category: </label>
-                <select id="category" name="category" class="form-select">
-                    <option value="fuel">Fuel</option>
-                    <option value="food">Food</option>
-                    <option value="electricity">Electricity</option>
-                    <option value="movie">Movie</option>
-                </select>
-            </div>
-            <br>
-            <div class="text-center">
-                <input class="btn btn-primary" id="add-button" type="submit" value="Add Expense">
-            </div>    
-        </form>
-        <br>
-        <label for="entries">Show entries:</label>
-        <select id="entries" class="form-select">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-        </select>
     </div>
-    
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  </body>
+
+    <script src="index.js"></script>
+</body>
 </html>
