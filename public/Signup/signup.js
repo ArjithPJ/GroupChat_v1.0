@@ -10,9 +10,17 @@ async function signup(e) {
             password: e.target.password.value
         }
         console.log(signupDetails);
-        const response =await axios.post('http://localhost:3000/signup', signupDetails)
+        const response =await axios.post('http://localhost:3000/signup', signupDetails, {
+            validateStatus: function (status) {
+                return status >= 200 && status < 500; // Accept only status codes between 200 and 499
+            }
+        });
         if(response.status ===201){
+            alert("User logged in");
             window.location.href = "../Login/login.html";
+        }
+        else if(response.status === 409){
+            alert("User already exists");
         }
         else{
             throw new Error('Failed to signup');
