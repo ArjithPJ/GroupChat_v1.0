@@ -15,7 +15,8 @@ const morgan = require("morgan");
 
 const app = express();
 
-const loginRoutes = require('./routes/signup');
+const signupRoutes = require('./routes/signup');
+const loginRoutes = require('./routes/login');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 
 app.use(cors());
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(signupRoutes);
 app.use(loginRoutes);
 
 sequelize
