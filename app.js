@@ -6,6 +6,7 @@ const cors = require('cors');
 const sequelize = require('./util/database');
 
 const Users = require('./models/users');
+const Chats = require('./models/chats');
 
 const path = require('path');
 const fs = require('fs');
@@ -17,6 +18,7 @@ const app = express();
 
 const signupRoutes = require('./routes/signup');
 const loginRoutes = require('./routes/login');
+const chatsRoutes = require('./routes/chats');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 
 app.use(cors());
@@ -32,11 +34,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(signupRoutes);
 app.use(loginRoutes);
+app.use(chatsRoutes);
 
 sequelize
 .sync()
 .then(result => {
-    
     app.listen(3000);
 })
 .catch(err => {
