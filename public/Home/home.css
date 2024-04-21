@@ -65,3 +65,64 @@ h2{
     font-size: 16px;
     margin-top: 1px;
 }
+
+
+
+
+
+
+.test {
+    width: 100%;
+    max-width: 400px; /* Adjust the max-width according to your preference */
+    margin: 20px auto;
+}
+
+.chat-bubble {
+    position: relative;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.outgoing {
+    float: right;
+    background-color: #DCF8C6; /* Adjust the background color for outgoing messages */
+}
+
+.incoming {
+    float: left;
+    background-color: #E5E5EA; /* Adjust the background color for incoming messages */
+}
+
+.message {
+    padding: 10px;
+    margin: 0;
+}
+
+.timestamp {
+    position: absolute;
+    bottom: 3px;
+    font-size: 10px;
+    color: #999;
+}
+
+/* Triangle/Caret for outgoing chat bubble */
+.outgoing::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -8px; /* Adjust the position of the caret */
+    border-width: 8px 8px 8px 0;
+    border-style: solid;
+    border-color: transparent #DCF8C6 transparent transparent; /* Adjust the border color */
+}
+
+/* Triangle/Caret for incoming chat bubble */
+.incoming::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -8px; /* Adjust the position of the caret */
+    border-width: 8px 0 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #E5E5EA; /* Adjust the border color */
+}

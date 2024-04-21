@@ -26,16 +26,6 @@ const Users = sequelize.define('users', {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  },
-  premium: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false
-  },
-  totalExpense: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0
   }
 });
 
