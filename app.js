@@ -7,6 +7,8 @@ const sequelize = require('./util/database');
 
 const Users = require('./models/users');
 const Chats = require('./models/chats');
+const Groups = require('./models/groups');
+const GroupMembers = require('./models/groupMembers');
 
 const path = require('path');
 const fs = require('fs');

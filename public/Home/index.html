@@ -4,30 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
-    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet"  href="home.css">
 </head>
 <body>
     <!-- <div class="container">
         <h2> Contact</h2>
     </div> -->
-    <div class="chats" id="chats">
-        <div class="chat-bubble outgoing">
-            <p class="message">Hey there!</p>
-            <span class="timestamp">10:00 AM</span>
+    <div class="container">
+        <div class="groups">
+            <h2>Your Groups</h2>
+            <ul>
+                <li data-group="group1">Group 1</li>
+                <li data-group="group2">Group 2</li>
+                <!-- Add more groups here -->
+            </ul>
         </div>
-        <div class="chat-bubble incoming">
-            <p class="message">Hi! How can I help you?</p>
-            <span class="timestamp">10:01 AM</span>
+        <div class="contents">
+            <div class="chats" id="chats">
+                <div class="chat-bubble outgoing">
+                    <p class="message">Hey there!</p>
+                    <span class="timestamp">10:00 AM</span>
+                </div>
+                <div class="chat-bubble incoming">
+                    <p class="message">Hi! How can I help you?</p>
+                    <span class="timestamp">10:01 AM</span>
+                </div>
+                <!-- More chat bubbles can be added here -->
+            </div>
+            <div class="chat-container">
+                <div>
+                    <input id="message" type="text" placeholder="Type your message...">
+                    <button id="send">➤</button>
+                </div>
+            </div>
         </div>
-        <!-- More chat bubbles can be added here -->
+        
     </div>
-    <div class="chat-container">
-        <ul id="messages"></ul>
-        <div>
-            <input id="message" type="text" placeholder="Type your message...">
-            <button id="send">➤</button>
-        </div>
-    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="index.js"></script>
 </body>

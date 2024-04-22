@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    
+    <style>
+        /* CSS for the layout */
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+        .groups {
+            width: 20%; /* Adjust as needed */
+        }
+        .chats {
+            width: 80%; /* Adjust as needed */
+        }
+        .selected {
+            background-color: #f0f0f0; /* Highlight selected group */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="groups" id="groupList">
+            <!-- List of groups -->
+            <h2>Your Groups</h2>
+            <ul>
+                <li data-group="group1">Group 1</li>
+                <li data-group="group2">Group 2</li>
+                <!-- Add more groups here -->
+            </ul>
+        </div>
+        <div class="chats" id="chatContainer">
+            <!-- Chat bubbles will be populated here -->
+        </div>
+    </div>
+    <div class="chat-container">
+        <ul id="messages"></ul>
+        <div>
+            <input id="message" type="text" placeholder="Type your message...">
+            <button id="send">➤</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script>
+        // JavaScript for handling group selection
+        const groupList = document.getElementById('groupList');
+        const chatContainer = document.getElementById('chatContainer');
+
+        groupList.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI') {
+                const groupName = event.target.dataset.group;
+                const selectedGroup = document.querySelector('.selected');
+                if (selectedGroup) {
+                    selectedGroup.classList.remove('selected');
+                }
+                event.target.classList.add('selected');
+                // Fetch and display chat for the selected group (you need to implement this)
+                fetchAndDisplayChat(groupName);
+            }
+        });
+
+        function fetchAndDisplayChat(groupName) {
+            // You need to implement this function to fetch and display chat for the selected group
+            // This might involve AJAX request to your server to fetch chat data
+            // and then updating the chatContainer HTML with the fetched data
+            // For now, you can just log the groupName to console
+            console.log('Fetching and displaying chat for group:', groupName);
+        }
+    </script>
+</body>
+</html>

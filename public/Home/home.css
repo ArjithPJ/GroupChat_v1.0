@@ -7,15 +7,14 @@ body {
 }
 
 .container {
-    width: 100%;
-    background-color: #128C7E;
-    border: 1px solid #ddd;
-    border-radius: 0px;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.groups {
+    background-color: white;
+    width: 35%;
+    
 }
 
 h2{
@@ -23,29 +22,24 @@ h2{
     color: white;
     font-size: 30px;
 }
+
 .chat-container {
     width: 100%;
     background-color: #128C7E;
     border: 1px solid #ddd;
     border-radius: 0px;
-    padding: 20px;
-    position: fixed;
+    padding: 10px;
+    position: absolute; /* Change position to absolute */
     bottom: 0;
-    left: 0;
-    right: 0;
+}
+.contents{
+    width: 100%;
 }
 
-#messages {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    max-height: 400px;
-    overflow-y: auto;
-}
 
 #message {
     padding: 10px;
-    width: 90%;
+    
     border: 1px solid #ddd;
     border-radius: 20px;
     font-size: 16px;
@@ -65,14 +59,12 @@ h2{
     font-size: 16px;
     margin-top: 1px;
 }
-
 .chats {
-    width: 100%;
-     /* Adjust the max-width according to your preference */
-    margin: 500px auto;
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden;
+    flex-grow: 1; /* Fill remaining space */
+    overflow-y: auto; /* Make it scrollable vertically */
+    height: calc(100vh - 100px); /* Set a fixed height, adjust as needed */
 }
+
 
 
 
