@@ -4,7 +4,6 @@ async function login(e) {
         console.log(e.target.email.value);
         //localStorage.removeItem('downloads');
         const loginDetails = {
-            name: e.target.name.value,
             email: e.target.email.value,
             password: e.target.password.value
         }
@@ -17,10 +16,9 @@ async function login(e) {
         console.log("Response:", response.status);
         if(response.status ===200){
             const token = response.data.token;
+            const name = response.data.name;
             localStorage.setItem('token', token);
-
-            const pageExpenses =  response.data.pageExpenses;
-
+            localStorage.setItem('name', name);
             window.location.href = "../Home/index.html";
         
         }

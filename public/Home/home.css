@@ -106,23 +106,23 @@ h2{
 }
 
 /* Triangle/Caret for outgoing chat bubble */
-.outgoing::before {
+.incoming::before {
     content: "";
     position: absolute;
     top: 50%;
     left: -8px; /* Adjust the position of the caret */
     border-width: 8px 8px 8px 0;
     border-style: solid;
-    border-color: transparent #DCF8C6 transparent transparent; /* Adjust the border color */
+    border-color: transparent  #E5E5EA transparent transparent; /* Adjust the border color */
 }
 
 /* Triangle/Caret for incoming chat bubble */
-.incoming::before {
+.outgoing::before {
     content: "";
     position: absolute;
     top: 50%;
     right: -8px; /* Adjust the position of the caret */
     border-width: 8px 0 8px 8px;
     border-style: solid;
-    border-color: transparent transparent transparent #E5E5EA; /* Adjust the border color */
+    border-color: transparent transparent transparent #DCF8C6; /* Adjust the border color */
 }

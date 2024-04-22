@@ -8,7 +8,6 @@ require('dotenv').config();
 exports.postLogin = async (req, res, next) => {
     const t = await sequelize.transaction();
     try{
-        
         const email = req.body.email;
         const password = req.body.password;
 
@@ -16,6 +15,7 @@ exports.postLogin = async (req, res, next) => {
         const user = await Users.findOne({ where: { email: email } },{ transaction: t});
 
         if (user) {
+            const name = user.name;
             const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
             if (isPasswordCorrect) {
@@ -24,7 +24,7 @@ exports.postLogin = async (req, res, next) => {
 
                 const token = jwt.sign({ id: userId }, process.env.TOKEN_SECRET);
                 await t.commit();
-                res.status(200).json({ token: token, message:"User successfully logged in"} );
+                res.status(200).json({ token: token, name: name, message:"User successfully logged in"} );
             } else {
                 res.status(401).json({ message: "Incorrect Password" });
             }

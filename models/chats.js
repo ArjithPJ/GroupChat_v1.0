@@ -2,13 +2,13 @@ const Sequelize = require('sequelize');
 const sequelize = require('../util/database');
 
 const Chats = sequelize.define('chats', {
-    sender: {
+    id: {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    receiver: {
-      type: Sequelize.INTEGER,
-      allowNull: false
+    name: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     chat: {
         type: Sequelize.STRING,

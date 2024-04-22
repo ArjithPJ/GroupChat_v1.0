@@ -7,8 +7,15 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to add a new message to the chat
     function addMessage(messageText) {
         const chatElement = document.createElement('div');
-        chatElement.classList.add('chat');
-        chatElement.textContent = messageText;
+        chatElement.classList.add("chat-bubble","outgoing");
+        const p = document.createElement('p');
+        p.className = 'message';
+        p.innerHTML = messageText;
+        const span = document.createElement('span');
+        span.className = 'timestamp';
+        chatElement.appendChild(p);
+        chatElement.appendChild(span);
+        span.innerHTML = new Date();
         chatsContainer.appendChild(chatElement);
     }
 
@@ -44,25 +51,28 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     });
-    
 
-    // Simulate receiving a message (for demonstration purposes)
-
-    // You can replace the above line with actual logic to receive messages from a server
 });
 
 window.onload = function() {
     getChats();
+
+    setInterval(getChats, 1000);
 };
 
 async function getChats() {
     try{
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:3000/getChats?token=${token}`);
+        const response = await axios.get(`http://localhost:3000/getChats`,{
+            validateStatus: function (status) {
+                return status >= 200 && status < 500; // Accept only status codes between 200 and 499
+            }
+        });
         if(response.status === 200){
             const chats = response.data.chats;
             console.log("Chats:", chats);
             localStorage.setItem('chats', JSON.stringify(chats));
+            const name = localStorage.getItem('name');
             const chatsContainer = document.getElementById('chats');
 
             // Clear previous chats
@@ -70,10 +80,25 @@ async function getChats() {
 
             // Add each chat message to the DOM
             chats.forEach(chat => {
+                const testElement = document.querySelector('.chats');
                 const chatElement = document.createElement('div');
-                chatElement.classList.add('chat');
-                chatElement.textContent = chat.chat; // Assuming chat message is stored in 'message' field
+                console.log(chat.name, name);
+                if(chat.name === name){
+                    chatElement.classList.add("chat-bubble", "outgoing");
+                }
+                else{
+                    chatElement.classList.add("chat-bubble","incoming");
+                }
+                const p = document.createElement('p');
+                p.className = 'message';
+                p.innerHTML = chat.chat
+                const span = document.createElement('span');
+                span.className = 'timestamp';
+                chatElement.appendChild(p);
+                chatElement.appendChild(span);
+                span.innerHTML = new Date(chat.time);
                 chatsContainer.appendChild(chatElement);
+
             });
         } 
         else {
