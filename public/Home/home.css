@@ -66,16 +66,18 @@ h2{
     margin-top: 1px;
 }
 
-
-
-
-
-
-.test {
+.chats {
     width: 100%;
-    max-width: 400px; /* Adjust the max-width according to your preference */
-    margin: 20px auto;
+     /* Adjust the max-width according to your preference */
+    margin: 500px auto;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden;
 }
+
+
+
+
+
 
 .chat-bubble {
     position: relative;
