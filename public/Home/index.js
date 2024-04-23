@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     sendButton.addEventListener("click", async function() {
         const message = messageInput.value.trim();
         const token = localStorage.getItem('token');
+        const currentGroup = localStorage.getItem('currentGroup');
         
         if (message !== "") {
             addMessage(message);
@@ -30,17 +31,19 @@ document.addEventListener("DOMContentLoaded", function() {
             
             const messageDetails = {
                 token: token,
+                currentGroup: currentGroup,
                 message: message,
                 time: new Date()
             };
             
             try {
+                console.log("Message clicked");
                 const response = await axios.post("http://localhost:3000/storechat", messageDetails, {
                     validateStatus: function (status) {
                         return status >= 200 && status < 500; // Accept only status codes between 200 and 499
                     }
                 });
-                
+                console.log(response.status);
                 if (response.status === 200) {
                     console.log("Chat entered successfully");
                     const chats = localStorage.setItem('chats',JSON.stringify(response.data.chats));
@@ -55,23 +58,58 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 window.onload = function() {
-    getChats();
+    getGroups();
+    // if(!localStorage.getItem(currentGroup)){
+    //     getChats();
+    //     setInterval(getChats, 1000);
+    // }
+    //getChats();
 
-    setInterval(getChats, 1000);
+    //setInterval(getChats, 1000);
 };
+
+async function getGroups(){
+    try{
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:3000/getGroups?token=${token}`,{
+            validateStatus: function (status) {
+                return status >= 200 && status < 500; // Accept only status codes between 200 and 499
+            }
+        });
+        if(response.status === 200){
+            const belongedGroups=response.data.belongedGroups;
+            localStorage.setItem('belongedGroups', JSON.stringify(belongedGroups));
+            const groupsDiv = document.querySelector(".your-groups");
+            belongedGroups.forEach((group)=>{
+                console.log(group);
+                const newgroupDiv = document.createElement('div');
+                newgroupDiv.className = "groupname";
+                newgroupDiv.id=group.group_id;
+                newgroupDiv.innerHTML=group.group_name;
+                groupsDiv.appendChild(newgroupDiv);
+            });
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+}
 
 async function getChats() {
     try{
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:3000/getChats`,{
+        const groupId = localStorage.getItem('currentGroup');
+        const response = await axios.get(`http://localhost:3000/getChats?group_id=${groupId}&token=${token}`,{
             validateStatus: function (status) {
                 return status >= 200 && status < 500; // Accept only status codes between 200 and 499
             }
         });
         if(response.status === 200){
             const chats = response.data.chats;
-            console.log("Chats:", chats);
+            const belongedGroups = response.data.belongedGroups;
+            
             localStorage.setItem('chats', JSON.stringify(chats));
+            localStorage.setItem('belongedGroups', JSON.stringify(belongedGroups));
             const name = localStorage.getItem('name');
             const chatsContainer = document.getElementById('chats');
 
@@ -82,7 +120,7 @@ async function getChats() {
             chats.forEach(chat => {
                 const testElement = document.querySelector('.chats');
                 const chatElement = document.createElement('div');
-                console.log(chat.name, name);
+                
                 if(chat.name === name){
                     chatElement.classList.add("chat-bubble", "outgoing");
                 }

@@ -4,20 +4,23 @@ const sequelize = require('../util/database');
 
 
 const GroupMembers = sequelize.define('groupMembers', {
-  group_id: {
+  sl_no: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
-  id: {
+  group_id: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  name: {
+  group_name: {
     type: Sequelize.STRING,
     allowNull: false
-    
+  },
+  id: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   }
 });
 

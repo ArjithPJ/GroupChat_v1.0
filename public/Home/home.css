@@ -9,45 +9,48 @@ body {
 .container {
     display: flex;
     flex-direction: row;
+    height: 100vh;
 }
 
 .groups {
     background-color: white;
     width: 35%;
-    
+    overflow-y: auto; /* Add this to enable scrolling for groups if needed */
 }
 
-h2{
-    font-family: Calibri;
-    color: white;
-    font-size: 30px;
+.contents {
+    width: 65%; /* Adjust width as needed */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Add this to establish positioning context */
+}
+
+.chats {
+    flex-grow: 1;
+    overflow-y: auto; /* Add this to enable scrolling only for chats */
+    
+    padding: 10px;
 }
 
 .chat-container {
-    width: 100%;
     background-color: #128C7E;
     border: 1px solid #ddd;
     border-radius: 0px;
     padding: 10px;
-    position: absolute; /* Change position to absolute */
-    bottom: 0;
 }
-.contents{
+
+.message-container {
     width: 100%;
 }
 
-
 #message {
     padding: 10px;
-    
+    width: 60%;
     border: 1px solid #ddd;
     border-radius: 20px;
     font-size: 16px;
     margin: 10px;
-
 }
-
-
 
 #send {
     padding: 10px;
@@ -59,17 +62,6 @@ h2{
     font-size: 16px;
     margin-top: 1px;
 }
-.chats {
-    flex-grow: 1; /* Fill remaining space */
-    overflow-y: auto; /* Make it scrollable vertically */
-    height: calc(100vh - 100px); /* Set a fixed height, adjust as needed */
-}
-
-
-
-
-
-
 
 .chat-bubble {
     position: relative;
@@ -79,12 +71,12 @@ h2{
 
 .outgoing {
     float: right;
-    background-color: #DCF8C6; /* Adjust the background color for outgoing messages */
+    background-color: #DCF8C6;
 }
 
 .incoming {
     float: left;
-    background-color: #E5E5EA; /* Adjust the background color for incoming messages */
+    background-color: #E5E5EA;
 }
 
 .message {
@@ -99,24 +91,134 @@ h2{
     color: #999;
 }
 
-/* Triangle/Caret for outgoing chat bubble */
 .incoming::before {
     content: "";
     position: absolute;
     top: 50%;
-    left: -8px; /* Adjust the position of the caret */
+    left: -8px;
     border-width: 8px 8px 8px 0;
     border-style: solid;
-    border-color: transparent  #E5E5EA transparent transparent; /* Adjust the border color */
+    border-color: transparent #E5E5EA transparent transparent;
 }
 
-/* Triangle/Caret for incoming chat bubble */
 .outgoing::before {
     content: "";
     position: absolute;
     top: 50%;
-    right: -8px; /* Adjust the position of the caret */
+    right: -8px;
     border-width: 8px 0 8px 8px;
     border-style: solid;
-    border-color: transparent transparent transparent #DCF8C6; /* Adjust the border color */
+    border-color: transparent transparent transparent #DCF8C6;
+}
+
+.App {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    background-color: #128C7E;
+}
+
+h1 {
+    margin-right: 20px;
+    color: white; /* Adjust spacing between the name and button */
+}
+
+#createGroupButton {
+    padding: 5px 10px; /* Adjust button padding as needed */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+
+/* Modal Styles starts here */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+  /* Modal Styles end here */
+
+  /* Chat List Styles starts here */
+.selected {
+    background-color: #cdcbcb; /* Change background color to indicate selection */
+}
+
+.groupname {
+    padding: 20px;
+    font-family: calibri;
+    font-size: 20px;
+
+}
+
+h2{
+    font-family: cursive;
+}
+
+/* Chat List Styles ends here */
+
+/* chat box */
+
+.sender-name {
+    font-weight: bold; /* Make the name bold */
+    margin-right: 5px; /* Add some spacing between name and timestamp */
+    color: red;
+    font-size: 10px;
+}
+
+.group-name{
+    display: flex;
+    background-color:#128C7E;
+}
+
+#add-members{
+    display: inline-block;
+    padding: 5px 10px;
+    
+    border-radius: 5px;
+    background-color: #007bff; /* Blue color, you can change it */
+    color: #ffffff; /* White text color */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+#add-members:hover{
+    background-color: #0056b3;
 }

@@ -10,29 +10,50 @@
     <!-- <div class="container">
         <h2> Contact</h2>
     </div> -->
+    
     <div class="container">
+        
         <div class="groups">
-            <h2>Your Groups</h2>
-            <ul>
-                <li data-group="group1">Group 1</li>
-                <li data-group="group2">Group 2</li>
-                <!-- Add more groups here -->
-            </ul>
+            <div class="App">
+                <h1>Group Chat</h1>
+                <button id="createGroupButton">+</button>
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Create New Group</h2>
+                    <form id="groupForm">
+                        <label for="groupName">Group Name:</label><br>
+                        <input type="text" id="groupName" name="groupName"><br>
+                        <label for="contacts">Contacts:</label><br>
+                        <div id="userList"></div> <!-- Container for user list -->
+                        <button type="submit" id="create-group-btn">Create Group</button>
+                    </form>
+                </div>
+            </div>
+            <div class="your-groups">
+                <h2>Your Groups</h2>
+                <!-- <ul id="groupList">
+                    <li data-group="group1">Group 1</li>
+                    <li data-group="group2">Group 2</li> -->
+                    <!-- Add more groups here -->
+                <!--</ul> -->
+            </div>  
         </div>
         <div class="contents">
             <div class="chats" id="chats">
-                <div class="chat-bubble outgoing">
+                <!-- <div class="chat-bubble outgoing">
                     <p class="message">Hey there!</p>
                     <span class="timestamp">10:00 AM</span>
                 </div>
                 <div class="chat-bubble incoming">
                     <p class="message">Hi! How can I help you?</p>
                     <span class="timestamp">10:01 AM</span>
-                </div>
+                </div> -->
                 <!-- More chat bubbles can be added here -->
             </div>
             <div class="chat-container">
-                <div>
+                <div id="message-container">
                     <input id="message" type="text" placeholder="Type your message...">
                     <button id="send">➤</button>
                 </div>
@@ -43,5 +64,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="index.js"></script>
+    <script src="createGroup.js"></script>
+    <script src="groupList.js"></script>
 </body>
 </html>

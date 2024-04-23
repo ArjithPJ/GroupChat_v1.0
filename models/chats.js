@@ -7,11 +7,15 @@ const Chats = sequelize.define('chats', {
         allowNull: false,
     },
     name: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     },
     chat: {
         type: Sequelize.STRING,
+        allowNull: false
+    },
+    group_id: {
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     time: {
