@@ -81,18 +81,28 @@ removeButton.addEventListener('click', function() {
     localStorage.setItem('batman', JSON.stringify(selectedUserIds));
     localStorage.setItem('robin', JSON.stringify(selectedUserNames));
     // Call removeMembers function with selectedUserIds
-    //removeMembers(selectedUserIds);
+    removeMembers(selectedUserIds, selectedUserNames);
 });
 
 
-function removeMembers(selectedUserIds) {
-    axios.post('/remove-members', { selectedUserIds })
-        .then(response => {
-            // Handle successful response if needed
-            console.log('Members removed:', response.data);
-        })
-        .catch(error => {
-            console.error('Failed to remove members:', error);
-        });
+async function removeMembers(selectedUserIds, selectedUserNames) {
+    try{
+        const currentGroup = localStorage.getItem('currentGroup');
+        const details = {
+            selectedUserIds: selectedUserIds,
+            selectedUserNames: selectedUserNames,
+            currentGroup: currentGroup
+        };
+        const response = await axios.post('http://localhost:3000/remove-members', details);
+        if(response.status ===200){
+            console.log("Members removed");
+            console.log("Response status", response.status);
+            localStorage.setItem('removed',response.status);
+        }
+    }
+    catch(error){
+        console.log(error);
+        console.log("Internal Server Error");
+    }
 }
 

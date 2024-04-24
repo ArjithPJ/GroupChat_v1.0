@@ -30,35 +30,39 @@ exports.postAddMembers = async (req, res, next) => {
     const memberNames = req.body.memberNames;
     const currentGroup = req.body.currentGroup;
     const currentGroupName = req.body.currentGroupName;
-    console.log("Im batman",memberIds,memberNames,currentGroup,currentGroupName)
+
     const t = await sequelize.transaction();
-    try{
-        for(let i=0; i<memberIds.length; i++){
+    try {
+        for (let i = 0; i < memberIds.length; i++) {
             let memberId = memberIds[i];
             let memberName = memberNames[i];
-            const isthere= await GroupMembers.findAll({
-                where:{
-                    id: parseInt(memberId,10)
-                }
-            }, {transaction: t});
-            console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",isthere);
-            if(!isthere){
+            
+            // Check if the member already exists in the group
+            const existingMember = await GroupMembers.findOne({
+                where: {
+                    id: memberId,
+                    group_id: currentGroup
+                },
+                transaction: t
+            });
+
+            // If the member doesn't exist, add them to the group
+            if (!existingMember) {
                 await GroupMembers.create({
-                    group_id: parseInt(currentGroup,10),
+                    group_id: parseInt(currentGroup, 10),
                     group_name: currentGroupName,
                     id: memberId,
                     name: memberName,
                     admin: false
-                    },{ transaction: t}
-                );
+                }, { transaction: t });
             }
         }
             
         await t.commit();
-        res.status(200).json({message: "Successfully added to the group", success: true});
-    }
-    catch(error){
-        console.log(error);
-        res.status(500).json({message: "Internal Server Error", success: false});
+        res.status(200).json({ message: "Successfully added to the group", success: true });
+    } catch (error) {
+        console.error(error);
+        await t.rollback();
+        res.status(500).json({ message: "Internal Server Error", success: false });
     }
 };

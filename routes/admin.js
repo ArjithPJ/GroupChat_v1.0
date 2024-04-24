@@ -6,7 +6,7 @@ const adminController = require('../controllers/admin');
 
 const router = express.Router();
 
-//router.post('/remove-users', adminController.postRemoveUsers);
+router.post('/remove-members', adminController.postRemoveMembers);
 //router.post('/admin-rights',adminController.postAdminRights);
 
 module.exports = router;

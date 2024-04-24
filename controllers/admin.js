@@ -5,3 +5,26 @@ const GroupMembers = require('../models/groupMembers');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sequelize = require('../util/database');
+
+exports.postRemoveMembers = async (req, res, next) => {
+    const selectedUserIds = req.body.selectedUserIds;
+    const selectedUserNames = req.body.selectedUserNames;
+    const currentGroup = req.body.currentGroup;
+    const t = await sequelize.transaction();
+    try{
+        selectedUserIds.forEach(async (selectedUserId)=>{
+            await GroupMembers.destroy({
+                where:{
+                    id: selectedUserId
+                }
+            }, {transaction: t});
+        });
+        await t.commit();
+        res.status(200).json({success: true, message: "Members removed"});
+    }
+    catch(error){
+        await t.rollback();
+        console.error(error);
+        res.status(500).json({success: false, message: "Internal Server Error"});
+    }
+};
