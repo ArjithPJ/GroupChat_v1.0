@@ -20,10 +20,72 @@ btn.onclick = async function(e) {
             checkbox.type = "checkbox";
             checkbox.name = "users[]";
             checkbox.value = user.id;
+            var label = document.createElement("label");
+            label.className="name";
+            label.textContent=user.name;
             userList.appendChild(checkbox);
-            userList.appendChild(document.createTextNode(user.name));
+            userList.appendChild(label);
             userList.appendChild(document.createElement("br"));
         });
+        var createGroupBtn = document.getElementById("create-group-btn");
+        var groupName = document.getElementById("groupName");
+        var userList = document.getElementsByName("users[]");
+        var userNamesList = document.querySelectorAll(".name");
+        console.log('usernamesList',userNamesList);
+        const token = localStorage.getItem('token');
+
+        createGroupBtn.onclick = async function(e) {
+            e.preventDefault();
+            console.log("Hey its clicked");
+            console.log('usernamesList',userNamesList);
+            console.log(userNamesList);
+            var selectedUsers = [];
+            var selectedUsernames=[];
+            for(let i = 0; i< userList.length; i++){
+                let user=userList[i];
+                let name=userNamesList[i];
+                if(user.checked){
+                    selectedUsers.push(user.value);
+                    selectedUsernames.push(name.textContent);
+                }
+            }
+            console.log(selectedUsers);
+            console.log(selectedUsernames);
+            // Check if group name is empty
+            if (!groupName.value.trim()) {
+                alert("Please enter a group name");
+                return;
+            }
+            // Check if at least one user is selected
+            if (selectedUsers.length === 0) {
+                alert("Please select at least one user");
+                return;
+            }
+            // Send data to server
+            try {
+                const response = await axios.post('http://localhost:3000/createGroup', {
+                    groupName: groupName.value,
+                    selectedUsers: selectedUsers,
+                    selectedUsernames: selectedUsernames,
+                    token: token
+                });
+                console.log("No error");
+                if (response.status === 200) {
+                    alert("Group created successfully!");
+                    modal.style.display = "none"; // Close the modal
+                    const belongedGroups = response.data.belongedGroups;
+                    localStorage.setItem('belongedGroups', JSON.stringify(belongedGroups));
+                    window.location.reload();
+                    //window.href.location = './index.html';
+                } else {
+                    alert("Failed to create group");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                
+            }
+        }
+
     }
 }
 
@@ -37,50 +99,8 @@ window.onclick = function(event) {
     }
 }
 
-var createGroupBtn = document.getElementById("create-group-btn");
-var groupName = document.getElementById("groupName");
-var userList = document.getElementsByName("users[]");
-const token = localStorage.getItem('token');
 
-createGroupBtn.onclick = async function(e) {
-    e.preventDefault();
-    console.log("Hey its clicked");
-    var selectedUsers = [];
-    userList.forEach(function(user) {
-        if (user.checked) {
-            selectedUsers.push(user.value);
-        }
-    });
-    console.log(selectedUsers);
-    // Check if group name is empty
-    if (!groupName.value.trim()) {
-        alert("Please enter a group name");
-        return;
-    }
-    // Check if at least one user is selected
-    if (selectedUsers.length === 0) {
-        alert("Please select at least one user");
-        return;
-    }
-    // Send data to server
-    try {
-        console.log("we are in");
-        const response = await axios.post('http://localhost:3000/createGroup', {
-            groupName: groupName.value,
-            selectedUsers: selectedUsers,
-            token: token
-        });
-        console.log("No error");
-        if (response.status === 200) {
-            alert("Group created successfully!");
-            modal.style.display = "none"; // Close the modal
-            const belongedGroups = response.data.belongedGroups;
-            localStorage.setItem('belongedGroups', JSON.stringify(belongedGroups));
-        } else {
-            alert("Failed to create group");
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        
-    }
-}
+
+
+
+

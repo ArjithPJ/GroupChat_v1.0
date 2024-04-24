@@ -21,6 +21,10 @@ const GroupMembers = sequelize.define('groupMembers', {
   id: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 });
 

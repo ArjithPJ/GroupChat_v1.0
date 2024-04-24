@@ -63,8 +63,6 @@ exports.getChats = async(req, res, next) => {
             }
         });
         
-        
-        
         res.status(200).json({ message: "Chats successfully retrieved", chats: chats, success: true, currentGroup: group_id});
     }
     catch(error){
@@ -89,6 +87,7 @@ exports.getUsers = async(req, res, next) => {
 exports.postCreateGroup = async (req, res, next) => {
     const groupName = req.body.groupName;
     const userList = req.body.selectedUsers;
+    const usernames = req.body.selectedUsernames;
     const token = req.body.token;
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
     const t = await sequelize.transaction();
@@ -98,13 +97,18 @@ exports.postCreateGroup = async (req, res, next) => {
             group_name: groupName,
             admin: id
         },{transaction: t});
-        userList.forEach(async (user)=>{
+
+        for(let i=0; i< userList.length; i++){
+            const user = userList[i];
+            const username = usernames[i];
+
             await GroupMembers.create({
                 group_id: group.group_id,
                 group_name: group.group_name,
-                id: user
-        },{transaction: t});
-        });
+                id: user,
+                name: username
+            },{ transaction: t});
+        }
         const belongedGroups = await GroupMembers.findAll({
             where: {
                 id: id
@@ -117,5 +121,19 @@ exports.postCreateGroup = async (req, res, next) => {
         console.log(error);
         await t.rollback();
         res.status(500).json({message: "Error in creating group", success: false});
+    }
+};
+
+exports.getMembers = async (req, res, next) => {
+    const group_id = req.query.group_id;
+    try{
+        const users= await GroupMembers.findAll({where:
+        {
+            group_id: group_id
+        }});
+        res.status(200).json({users: users, success: true});
+    }
+    catch(error){
+        res.status(500).json({success:false});
     }
 };

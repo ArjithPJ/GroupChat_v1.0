@@ -31,6 +31,56 @@
                     </form>
                 </div>
             </div>
+            <div id="myModal-editgroup" class="modal-editgroup">
+                <div class="modal-editcontent">
+                    <span class="close-editGroup">&times;</span>
+                    <h2>Edit Group</h2>
+                    <div class="tabs">
+                        <button class="tablinks" onclick="openTab(event, 'addMembers')">Add Members</button>
+                        <button class="tablinks" onclick="openTab(event, 'removeMembers')">Remove Members</button>
+                        <button class="tablinks" onclick="openTab(event, 'adminRights')">Admin Rights</button>
+                    </div>
+            
+                    <!-- Tab content for adding members -->
+                    <div id="addMembers" class="tabcontent" style="display: none;">
+                        <!-- Content for adding members goes here -->
+                        <!-- Example: Form for adding members -->
+                        <form id="addMembersForm">
+                            <label for="newMembers">Add Members:</label><br>
+                            <input type="text" id="newMembers" name="newMembers"><br>
+                            <button type="submit">Add Members</button>
+                        </form>
+                    </div>
+            
+                    <!-- Tab content for removing members -->
+                    <div id="removeMembers" class="tabcontent" style="display: none;">
+                        <!-- Content for removing members goes here -->
+                        <!-- Example: Form for removing members -->
+                        <form id="removeMembersForm">
+                            <label for="selectedMembers">Remove Members:</label><br>
+                            <select id="selectedMembers" name="selectedMembers">
+                                <!-- Options for selecting members to remove -->
+                            </select><br>
+                            <button type="submit">Remove Members</button>
+                        </form>
+                    </div>
+            
+                    <!-- Tab content for assigning admin rights -->
+                    <div id="adminRights" class="tabcontent" style="display: none;">
+                        <!-- Content for assigning admin rights goes here -->
+                        <!-- Example: Form for assigning admin rights -->
+                        <form id="adminRightsForm">
+                            <label for="adminMembers">Assign Admin Rights:</label><br>
+                            <select id="adminMembers" name="adminMembers">
+                                <!-- Options for selecting members to assign admin rights -->
+                            </select><br>
+                            <button type="submit">Assign Admin Rights</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            
             <div class="your-groups">
                 <h2>Your Groups</h2>
                 <!-- <ul id="groupList">
@@ -66,5 +116,25 @@
     <script src="index.js"></script>
     <script src="createGroup.js"></script>
     <script src="groupList.js"></script>
+    <script>
+        function openTab(evt, tabName) {
+            // Get all elements with class="tabcontent" and hide them
+            var tabcontent = document.getElementsByClassName("tabcontent");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+    
+            // Get all elements with class="tablinks" and remove the class "active"
+            var tablinks = document.getElementsByClassName("tablinks");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+    
+            // Show the current tab and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+    <script src="addMembers.js"></script>
 </body>
 </html>

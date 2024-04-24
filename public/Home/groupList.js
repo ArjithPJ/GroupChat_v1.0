@@ -3,7 +3,7 @@ let intervalId; // Variable to store the interval ID
 
 // Add a click event listener to the group list
 groupList.addEventListener("click", async function(event) {
-    const clickedGroup = event.target.closest("div");
+    const clickedGroup = event.target.closest("div.groupname");
     console.log(clickedGroup);
     const groupName = clickedGroup.textContent;
     const groupId = clickedGroup.id;
@@ -27,6 +27,55 @@ groupList.addEventListener("click", async function(event) {
     groupNameDiv.appendChild(grname);
     groupNameDiv.appendChild(adminButton);
     contentsContainer.prepend(groupNameDiv);
+    const modal = document.getElementById('myModal-editgroup');
+    const closeBtn = modal.querySelector('.close-editGroup');
+
+    
+    
+    adminButton.onclick =async function(e){
+        e.preventDefault();
+        modal.style.display = "block";
+        const response = await axios.get(`http://localhost:3000/getMembers?group_id=${groupId}`,{
+            validateStatus: function (status) {
+                return status >= 200 && status < 500; // Accept only status codes between 200 and 499
+            }
+        });
+        const editgroupName = document.querySelector("#group-edit-Name");
+        editgroupName.innerHTML=groupName;
+        if(response.status===200){
+            const users = response.data.users;
+            console.log("Users:", users);
+            var userList = document.getElementById("current-userList");
+            userList.innerHTML = ""; // Clear existing users
+            users.forEach(function(user) {
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "users[]";
+                checkbox.value = user.id;
+                userList.appendChild(checkbox);
+                userList.appendChild(document.createTextNode(user.name));
+                userList.appendChild(document.createElement("br"));
+            });
+        }
+
+    }
+
+
+
+
+
+    
+    closeBtn.addEventListener("click", function() {
+        // Hide the modal when close button is clicked
+        modal.style.display = "none";
+    });
+    
+    // Close the modal when the user clicks outside of it
+    window.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
 
     // Function to fetch chats
     const fetchChats = async () => {
@@ -69,10 +118,8 @@ groupList.addEventListener("click", async function(event) {
 });
 
 async function showChats(chats, groupName){
+    console.log("Group Name:",groupName)
     
-
-
-
     const chatsContainer = document.getElementById('chats');
     // Clear previous chats
     chatsContainer.innerHTML = "";
