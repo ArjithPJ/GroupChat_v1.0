@@ -25,6 +25,10 @@ const GroupMembers = sequelize.define('groupMembers', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  admin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
   }
 });
 

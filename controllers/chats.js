@@ -62,8 +62,14 @@ exports.getChats = async(req, res, next) => {
                 group_id: group_id
             }
         });
+        const group_name = await Groups.findOne({
+            where: {
+                group_id: group_id
+            }
+        });
+        console.log("Groups:", group_name);
         
-        res.status(200).json({ message: "Chats successfully retrieved", chats: chats, success: true, currentGroup: group_id});
+        res.status(200).json({ message: "Chats successfully retrieved", chats: chats, success: true, currentGroup: group_id, currentGroupName: group_name.group_name});
     }
     catch(error){
         console.log(error);
@@ -94,19 +100,27 @@ exports.postCreateGroup = async (req, res, next) => {
     try{
         const id = decoded.id;
         const group=await Groups.create({
-            group_name: groupName,
-            admin: id
+            group_name: groupName
         },{transaction: t});
 
         for(let i=0; i< userList.length; i++){
             const user = userList[i];
             const username = usernames[i];
-
+            if(user=== id){
+                await GroupMembers.create({
+                    group_id: group.group_id,
+                    group_name: group.group_name,
+                    id: user,
+                    name: username,
+                    admin: true
+                },{ transaction: t});
+            }
             await GroupMembers.create({
                 group_id: group.group_id,
                 group_name: group.group_name,
                 id: user,
-                name: username
+                name: username,
+                admin: false
             },{ transaction: t});
         }
         const belongedGroups = await GroupMembers.findAll({
@@ -137,3 +151,4 @@ exports.getMembers = async (req, res, next) => {
         res.status(500).json({success:false});
     }
 };
+

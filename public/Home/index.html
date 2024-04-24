@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
     <link rel="stylesheet"  href="home.css">
+    <link rel="stylesheet" href="search.css">
 </head>
 <body>
     <!-- <div class="container">
@@ -44,24 +45,30 @@
                     <!-- Tab content for adding members -->
                     <div id="addMembers" class="tabcontent" style="display: none;">
                         <!-- Content for adding members goes here -->
-                        <!-- Example: Form for adding members -->
                         <form id="addMembersForm">
-                            <label for="newMembers">Add Members:</label><br>
-                            <input type="text" id="newMembers" name="newMembers"><br>
-                            <button type="submit">Add Members</button>
+                            <label for="searchMembers">Search Members:</label><br>
+                            <input type="text" id="searchMembers" name="searchMembers"><br>
+                            <div id="searchResults" class="search-results"></div><br>
+                            <div id="selectedMembersList"></div><br> <!-- Display selected members here -->
+                             <!-- Dropdown-like search results -->
+                            <button type="button" id="add-more">Add Members</button>
+                            
                         </form>
                     </div>
+                    
             
                     <!-- Tab content for removing members -->
                     <div id="removeMembers" class="tabcontent" style="display: none;">
                         <!-- Content for removing members goes here -->
                         <!-- Example: Form for removing members -->
                         <form id="removeMembersForm">
-                            <label for="selectedMembers">Remove Members:</label><br>
-                            <select id="selectedMembers" name="selectedMembers">
-                                <!-- Options for selecting members to remove -->
+                            <label for="removeSelectedMembers">Remove Members:</label><br>
+                            <select id="removeSelectedMembers" name="removeSelectedMembers">
+                                <option value="0" selected>Select</option>
+                                <!-- Options for selecting members to remove will be dynamically added here -->
                             </select><br>
-                            <button type="submit">Remove Members</button>
+                            <div id="removeselectedMembersList"></div><br>
+                            <button type="submit" id="remove-button">Remove Members</button>
                         </form>
                     </div>
             
@@ -83,24 +90,10 @@
             
             <div class="your-groups">
                 <h2>Your Groups</h2>
-                <!-- <ul id="groupList">
-                    <li data-group="group1">Group 1</li>
-                    <li data-group="group2">Group 2</li> -->
-                    <!-- Add more groups here -->
-                <!--</ul> -->
             </div>  
         </div>
         <div class="contents">
             <div class="chats" id="chats">
-                <!-- <div class="chat-bubble outgoing">
-                    <p class="message">Hey there!</p>
-                    <span class="timestamp">10:00 AM</span>
-                </div>
-                <div class="chat-bubble incoming">
-                    <p class="message">Hi! How can I help you?</p>
-                    <span class="timestamp">10:01 AM</span>
-                </div> -->
-                <!-- More chat bubbles can be added here -->
             </div>
             <div class="chat-container">
                 <div id="message-container">
@@ -136,5 +129,6 @@
         }
     </script>
     <script src="addMembers.js"></script>
+    <script src="removeMembers.js"></script>
 </body>
 </html>

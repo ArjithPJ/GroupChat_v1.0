@@ -21,6 +21,7 @@ const app = express();
 const signupRoutes = require('./routes/signup');
 const loginRoutes = require('./routes/login');
 const chatsRoutes = require('./routes/chats');
+const adminRoutes = require('./routes/admin');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 
 app.use(cors());
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(signupRoutes);
 app.use(loginRoutes);
 app.use(chatsRoutes);
+app.use(adminRoutes);
 
 sequelize
 .sync()
