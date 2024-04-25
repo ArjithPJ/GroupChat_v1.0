@@ -47,7 +47,6 @@ selectMembers.addEventListener('focus', function() {
     axios.get(`http://localhost:3000/getMembers?group_id=${currentGroup}`)
         .then(response => {
             const members = response.data.users; // Assuming the response contains an array of member objects
-            console.log("Memebere", members);
             // Iterate over the members and create an option for each one
             selectMembers.innerHTML=`<option value="0" selected>Select</option>`;
             members.forEach(member => {

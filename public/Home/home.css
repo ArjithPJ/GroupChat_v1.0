@@ -115,6 +115,10 @@ body {
     display: flex;
     align-items: center; /* Center items vertically */
     background-color: #128C7E;
+    padding: 50px;
+}
+.App h2 {
+    margin-right: 100px; /* Adjust the value as needed for the desired vertical space */
 }
 
 h1 {
@@ -124,12 +128,13 @@ h1 {
 
 #createGroupButton {
     padding: 5px 10px; /* Adjust button padding as needed */
-    background-color: #007bff;
+    background-color: #0f35a0;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 30px;
+    margin-right: 10px;
 }
 
 
@@ -151,8 +156,9 @@ h1 {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 10px solid #888;
     width: 80%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   }
   
   .close, .close-editGroup {
@@ -171,6 +177,63 @@ h1 {
     cursor: pointer;
   }
 
+  .modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    }
+
+    /* Form inputs */
+    #groupForm label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-family: cursive;
+    }
+
+    #groupForm input[type="text"] {
+        width: calc(100% - 40px); /* Adjust input width */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    /* Create Group button */
+    #create-group-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    #create-group-btn:hover {
+        background-color: #0056b3; /* Darker color on hover */
+    }
+
+    #userList {
+        border: 1px solid #ccc;
+        max-height: 200px;
+        display: block;
+        overflow: auto /* Ensure each pair appears on a new line */
+    }
+    
+    /* Style for each user item */
+    .user-item {
+        display: inline-block; /* Display each pair on the same line */
+        margin-right: 10px; /* Add space between each pair */
+    }
+    
+    /* Style for user checkbox */
+    .user-checkbox {
+        margin-right: 5px; /* Add space between checkbox and name */
+    }
+    .name {
+        margin-bottom: 15px;
+    }
 
   /* Modal Styles end here */
 
@@ -203,12 +266,41 @@ h2{
 
 .group-name{
     display: flex;
-    background-color:#128C7E;
+    padding: 20px;
+    background-color:#f5f5f5df;
 }
+
+/* Group List Styles starts here */
+.your-groups {
+    background-color: #f5f5f5; /* Background color */
+    padding: 10px; /* Padding around the container */
+    border-radius: 10px; /* Rounded corners */
+    max-height: 300px; /* Maximum height to enable scrolling */
+    overflow-y: 550px;; /* Enable vertical scrolling if content overflows */
+}
+
+
+.group-list {
+    margin-top: 10px; /* Add space between the heading and the group list */
+}
+
+.groupname {
+    padding: 20px; /* Padding around each group name */
+    background-color: #fff; /* Background color of each group name */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 5px; /* Add space between each group name */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.groupname:hover {
+    background-color: #ded9d9c5; /* Background color on hover */
+}
+
+/* Group List Styles end here */
 
 #add-members{
     display: inline-block;
-    padding: 5px 10px;
+    padding: 5px;
     
     border-radius: 5px;
     background-color: #007bff; /* Blue color, you can change it */
@@ -219,6 +311,9 @@ h2{
     text-decoration: none;
     cursor: pointer;
     border: 2px solid black;
+    height: 30px;
+    margin-top: 20px; /* Move the button vertically down */
+    margin-left: 20px; /* Move the button horizontally right */
 }
 #add-members:hover{
     background-color: #0056b3;

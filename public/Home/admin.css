@@ -1,0 +1,155 @@
+.tabs {
+    display: flex;
+}
+
+.tablinks {
+    background-color: #f2f2f2; /* Background color */
+    border: none; /* Remove border */
+    color: #333; /* Text color */
+    padding: 10px 20px; /* Padding */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s; /* Smooth transition on hover */
+    font-family: cursive;
+}
+
+.tablinks:hover {
+    background-color: #ddd; /* Background color on hover */
+}
+
+/* Modal tab content styling starts here */
+.tabcontent {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+#addMembersForm {
+    max-width: 400px;
+    margin: 0 auto; /* Center the form horizontally */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+.search-results {
+    margin-bottom: 10px;
+}
+
+#selectedMembersList {
+    margin-bottom: 20px;
+}
+
+#add-more {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#add-more:hover {
+    background-color: #0056b3;
+}
+
+/*search drop down style */
+.search-results {
+    display: none; /* Hide the dropdown by default */
+    max-height: 200px; /* Limit the dropdown height */
+    overflow-y: auto; /* Add scrollbar if needed */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border-radius */
+    padding: 5px; /* Add padding */
+}
+
+.search-results span {
+    display: block; /* Make each result appear on a new line */
+    padding: 5px; /* Add padding */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.search-results span:hover {
+    background-color: #f2f2f2; /* Highlight result on hover */
+}
+
+
+/* remove member styles */
+
+#removeMembersForm {
+    font-family: Arial, sans-serif; /* Use a readable font */
+    padding: 20px; /* Add some padding */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add border radius */
+}
+
+#removeMembersForm label {
+    margin-bottom: 5px; /* Add some space below labels */
+}
+
+#removeSelectedMembers {
+    width: 100%; /* Make the select element full width */
+    padding: 8px; /* Add padding */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border radius */
+    margin-bottom: 10px; /* Add some space below the select element */
+}
+
+#removeselectedMembersList {
+    max-height: 200px; /* Limit the height of the list */
+    overflow-y: auto; /* Add scrollbar if needed */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border radius */
+    padding: 10px; /* Add padding */
+}
+
+#remove-button {
+    background-color: #ff6347; /* Red color for contrast */
+    color: #fff; /* White text color */
+    padding: 10px 20px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    cursor: pointer; /* Add pointer cursor */
+    font-size: 16px; /* Set font size */
+}
+
+#remove-button:hover {
+    background-color: #d64531; /* Darker red color on hover */
+}
+
+/* Styles for spans */
+span {
+    font-size: 18px; /* Set font size */
+    color: #333; /* Set text color */
+    font-family: cursive;
+}
+
+/* Styles for buttons */
+button {
+    padding: 5px ; /* Add padding */
+    background-color: red; /* Blue color */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    cursor: pointer; /* Add pointer cursor */
+    font-size: 16px; /* Set font size */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+}
+
+
+

@@ -21,10 +21,18 @@ btn.onclick = async function(e) {
             checkbox.name = "users[]";
             checkbox.value = user.id;
             var label = document.createElement("label");
+            var newDiv = document.createElement("div");
+            newDiv.style.display='flex';
             label.className="name";
-            label.textContent=user.name;
-            userList.appendChild(checkbox);
+            label.style.marginTop='10px';
             userList.appendChild(label);
+            label.textContent=user.name;
+            
+            newDiv.appendChild(checkbox);
+            newDiv.appendChild(label);
+            
+            userList.appendChild(newDiv);
+            
             userList.appendChild(document.createElement("br"));
         });
         var createGroupBtn = document.getElementById("create-group-btn");

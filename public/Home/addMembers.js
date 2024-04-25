@@ -8,6 +8,7 @@ async function searchMembers() {
     const searchInput = document.getElementById('searchMembers').value;
     console.log("searchvalie:",searchInput);
     const searchResultsContainer = document.getElementById('searchResults');
+    searchResultsContainer.style.display='block';
     
     // Make a request to your backend API to search for members
     const response = await axios.get(`http://localhost:3000/search-users?searchInput=${searchInput}`);
@@ -25,11 +26,22 @@ async function searchMembers() {
         memberDiv.innerHTML = `<span id="${member.id}">${member.name}</span>`;
 
         // Add click event listener to select the member
-        memberDiv.addEventListener('click', () => selectMember(member));
+        memberDiv.addEventListener('click', () => {
+            selectMember(member);
+            // Hide the search results container after selecting a member
+            searchResultsContainer.style.display = 'none';
+        });
 
         searchResultsContainer.appendChild(memberDiv);
+        name.addEventListener('blur', () => {
+            // Hide the search results container when the search input loses focus
+            searchResultsContainer.style.display = 'none';
+        });
     });
 }
+
+
+
 
 // Function to select a member and display it in selectedMembersList
 function selectMember(member) {

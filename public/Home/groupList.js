@@ -1,4 +1,5 @@
 const groupList = document.querySelector(".your-groups");
+const chatContainer = document.querySelector('.chat-container');
 let intervalId; // Variable to store the interval ID
 
 // Add a click event listener to the group list
@@ -9,6 +10,7 @@ groupList.addEventListener("click", async function(event) {
     const groupId = clickedGroup.id;
     console.log(groupName);
     const token = localStorage.getItem('token');
+    chatContainer.style.display='block';
 
     // Clear previous interval if exists
     clearInterval(intervalId);
@@ -20,7 +22,7 @@ groupList.addEventListener("click", async function(event) {
     groupNameDiv.className = 'group-name';
     const adminButton = document.createElement('button');
     adminButton.id='add-members';
-    adminButton.innerHTML='Edit Group';
+    adminButton.innerHTML=`<i class='fas fa-pen'></i>`;
     
     const grname= document.createElement('h2');
     grname.id='gr-name';
