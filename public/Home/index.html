@@ -79,9 +79,11 @@
                         <form id="adminRightsForm">
                             <label for="adminMembers">Assign Admin Rights:</label><br>
                             <select id="adminMembers" name="adminMembers">
+                                <option value="0" selected>Select</option>
                                 <!-- Options for selecting members to assign admin rights -->
                             </select><br>
-                            <button type="submit">Assign Admin Rights</button>
+                            <div id="new-admins"></div><br>
+                            <button type="submit" id="add-admin-button">Assign Admin Rights</button>
                         </form>
                     </div>
                 </div>
@@ -130,5 +132,6 @@
     </script>
     <script src="addMembers.js"></script>
     <script src="removeMembers.js"></script>
+    <script src="addAdmins.js"></script>
 </body>
 </html>

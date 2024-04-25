@@ -5,7 +5,7 @@ console.log("BAn", selectMembers);
 
 const selectedMembersList = document.getElementById('removeselectedMembersList');
 
-const removeButton = document.getElementById('remove-button');
+const removeMembersButton = document.getElementById('remove-button');
 
 selectMembers.addEventListener('change', function() {
     const selectedOption = this.options[this.selectedIndex];
@@ -44,13 +44,12 @@ selectMembers.addEventListener('change', function() {
 // Assuming 'selectedMembers' is the ID of the select element
 selectMembers.addEventListener('focus', function() {
     // Make a request to your backend API to get members
-    const group_id = 'your_group_id'; // Assuming you have a group_id defined somewhere
     axios.get(`http://localhost:3000/getMembers?group_id=${currentGroup}`)
         .then(response => {
             const members = response.data.users; // Assuming the response contains an array of member objects
             console.log("Memebere", members);
             // Iterate over the members and create an option for each one
-            selectMembers.innerHTML='';
+            selectMembers.innerHTML=`<option value="0" selected>Select</option>`;
             members.forEach(member => {
                 const option = document.createElement('option');
                 option.value = member.id; // Assuming member objects have an 'id' property
@@ -66,7 +65,7 @@ selectMembers.addEventListener('focus', function() {
 
 
 
-removeButton.addEventListener('click', function() {
+removeMembersButton.addEventListener('click', function() {
     // Collect the IDs of selected users
     const selectedUserIds = [];
     const selectedUserNames=[];
