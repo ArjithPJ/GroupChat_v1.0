@@ -21,6 +21,7 @@ groupList.addEventListener("click", async function(event) {
     const adminButton = document.createElement('button');
     adminButton.id='add-members';
     adminButton.innerHTML='Edit Group';
+    
     const grname= document.createElement('h2');
     grname.id='gr-name';
     grname.innerHTML= groupName;
@@ -86,10 +87,15 @@ groupList.addEventListener("click", async function(event) {
             });
             if (response.status === 200) {
                 const chats = response.data.chats;
+                const isAdmin = response.data.isAdmin;
                 const currentGroup = response.data.currentGroup;
                 const currentGroupName = response.data.currentGroupName;
                 localStorage.setItem('currentGroup', JSON.stringify(parseInt(currentGroup,10)));
                 localStorage.setItem('currentGroupName', currentGroupName);
+                localStorage.setItem('isAdmin', JSON.stringify(isAdmin));
+                if(localStorage.getItem('isAdmin')==='false'){
+                    adminButton.disabled='true';
+                }
                 await showChats(chats, groupName);
             } else {
                 console.log("Response Status:", response.status);

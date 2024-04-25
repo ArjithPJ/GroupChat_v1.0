@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
     /* background-image: url('../business_woman.jpg');
     background-size: cover; */
-    background-color: #3b5999;
+    background-color: #128C7E;
     background-position: center;
     height: 100vh;
     display: flex;
@@ -87,6 +87,7 @@ button:hover {
 
 .login-link {
     margin-top: 20px;
+    text-align: center;
 }
 
 .login-link a {
@@ -111,3 +112,5 @@ button:hover {
 .signup-link a:hover {
     text-decoration: underline; 
 }
+
+

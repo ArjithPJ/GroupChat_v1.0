@@ -74,6 +74,7 @@ addAdminButton.addEventListener('click', function() {
 async function addAdmins(selectedUserIds, selectedUserNames) {
     try{
         const currentGroup = localStorage.getItem('currentGroup');
+        const details={
             selectedUserIds: selectedUserIds,
             selectedUserNames: selectedUserNames,
             currentGroup: currentGroup

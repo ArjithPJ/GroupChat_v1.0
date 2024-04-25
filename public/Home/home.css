@@ -220,7 +220,15 @@ h2{
     cursor: pointer;
     border: 2px solid black;
 }
-
 #add-members:hover{
     background-color: #0056b3;
 }
+#add-members[disabled] {
+    color: #999; /* Grey text color */
+    background-color: #ccc; /* Grey background color */
+    cursor: not-allowed; /* Cursor style */
+}
+
+
+
+

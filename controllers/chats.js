@@ -57,6 +57,12 @@ exports.getChats = async(req, res, next) => {
     const group_id=req.query.group_id;
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
     try{
+        const isAdmin = await GroupMembers.findOne({
+            where:{
+                id: decoded.id,
+                group_id: group_id
+            }
+        });
         const chats = await Chats.findAll({
             where:{
                 group_id: group_id
@@ -69,7 +75,7 @@ exports.getChats = async(req, res, next) => {
         });
         console.log("Groups:", group_name);
         
-        res.status(200).json({ message: "Chats successfully retrieved", chats: chats, success: true, currentGroup: group_id, currentGroupName: group_name.group_name});
+        res.status(200).json({ message: "Chats successfully retrieved", chats: chats, success: true, currentGroup: group_id, currentGroupName: group_name.group_name, isAdmin: isAdmin.admin});
     }
     catch(error){
         console.log(error);
@@ -96,6 +102,7 @@ exports.postCreateGroup = async (req, res, next) => {
     const usernames = req.body.selectedUsernames;
     const token = req.body.token;
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", userList, usernames);
     const t = await sequelize.transaction();
     try{
         const id = decoded.id;
@@ -106,7 +113,8 @@ exports.postCreateGroup = async (req, res, next) => {
         for(let i=0; i< userList.length; i++){
             const user = userList[i];
             const username = usernames[i];
-            if(user=== id){
+            
+            if(parseInt(user,10)=== parseInt(id,10)){
                 await GroupMembers.create({
                     group_id: group.group_id,
                     group_name: group.group_name,
@@ -115,13 +123,15 @@ exports.postCreateGroup = async (req, res, next) => {
                     admin: true
                 },{ transaction: t});
             }
-            await GroupMembers.create({
-                group_id: group.group_id,
-                group_name: group.group_name,
-                id: user,
-                name: username,
-                admin: false
-            },{ transaction: t});
+            else{
+                await GroupMembers.create({
+                    group_id: group.group_id,
+                    group_name: group.group_name,
+                    id: user,
+                    name: username,
+                    admin: false
+                },{ transaction: t});
+            }
         }
         const belongedGroups = await GroupMembers.findAll({
             where: {
