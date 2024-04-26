@@ -28,9 +28,9 @@ newAdminMembers.addEventListener('change', function(){
     this.value = '0';
 });
 
-newAdminMembers.addEventListener('focus', async function() {
-    console.log("Focused");
+newAdminMembers.addEventListener('click', async function() {
     try{
+        const currentGroup = localStorage.getItem('currentGroup');
         const response = await axios.get(`http://localhost:3000/getMembers?group_id=${currentGroup}`);
         if(response.status === 200){
             const members = response.data.users;

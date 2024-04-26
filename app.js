@@ -17,11 +17,14 @@ const compression = require("compression");
 const morgan = require("morgan");
 
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config();
 
 const signupRoutes = require('./routes/signup');
 const loginRoutes = require('./routes/login');
 const chatsRoutes = require('./routes/chats');
 const adminRoutes = require('./routes/admin');
+const ForgotPasswordRequests = require("./models/forgotPasswordRequests");
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 
 app.use(cors());
@@ -39,6 +42,7 @@ app.use(signupRoutes);
 app.use(loginRoutes);
 app.use(chatsRoutes);
 app.use(adminRoutes);
+
 
 sequelize
 .sync()

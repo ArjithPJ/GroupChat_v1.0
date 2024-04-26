@@ -26,8 +26,8 @@ async function searchMembers() {
         memberDiv.innerHTML = `<span id="${member.id}">${member.name}</span>`;
 
         // Add click event listener to select the member
-        memberDiv.addEventListener('click', () => {
-            selectMember(member);
+        memberDiv.addEventListener('click', async() => {
+            await selectMember(member);
             // Hide the search results container after selecting a member
             searchResultsContainer.style.display = 'none';
         });
@@ -35,7 +35,9 @@ async function searchMembers() {
         searchResultsContainer.appendChild(memberDiv);
         name.addEventListener('blur', () => {
             // Hide the search results container when the search input loses focus
-            searchResultsContainer.style.display = 'none';
+            setTimeout(() => {
+                searchResultsContainer.style.display = 'none';
+            }, 100);
         });
     });
 }
@@ -78,7 +80,7 @@ const addButton = document.getElementById('add-more');
 
 addButton.addEventListener('click', async function() {
     // Your code logic here
-    addMembers();
+    await addMembers();
 });
 
 // Function to send selected members to the backend

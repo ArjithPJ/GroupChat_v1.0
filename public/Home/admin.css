@@ -50,6 +50,18 @@ input[type="text"] {
 #selectedMembersList {
     margin-bottom: 20px;
 }
+.remove-button {
+    background-color: #ff6666;
+    color: #fff;
+    border: none;
+    border-radius: 10%;
+    width: 20px;
+    height: 30px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+  }
+
 
 #add-more {
     background-color: #007bff;
@@ -63,6 +75,10 @@ input[type="text"] {
 
 #add-more:hover {
     background-color: #0056b3;
+}
+
+#searchMembers {
+    width: 45%;
 }
 
 /*search drop down style */

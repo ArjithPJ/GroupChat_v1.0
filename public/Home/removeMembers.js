@@ -29,6 +29,7 @@ selectMembers.addEventListener('change', function() {
         newRemoveDiv.appendChild(removeButton);
         selectedMembersList.append(newRemoveDiv);
         removeButton.addEventListener('click', function() {
+            selectMembers.innerHTML=`<option value="0" selected>Select</option>`;
             removeButton.parentElement.remove(); // Remove the span when the button is clicked
         });
 
@@ -42,11 +43,14 @@ selectMembers.addEventListener('change', function() {
 });
 
 // Assuming 'selectedMembers' is the ID of the select element
-selectMembers.addEventListener('focus', function() {
+selectMembers.addEventListener('click', async function() {
     // Make a request to your backend API to get members
-    axios.get(`http://localhost:3000/getMembers?group_id=${currentGroup}`)
+    const currentGroup = localStorage.getItem('currentGroup');
+    selectMembers.innerHTML=`<option value="0" selected>Select</option>`;
+    await axios.get(`http://localhost:3000/getMembers?group_id=${currentGroup}`)
         .then(response => {
-            const members = response.data.users; // Assuming the response contains an array of member objects
+            const members = response.data.users;
+            console.log(response.data.users); // Assuming the response contains an array of member objects
             // Iterate over the members and create an option for each one
             selectMembers.innerHTML=`<option value="0" selected>Select</option>`;
             members.forEach(member => {

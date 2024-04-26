@@ -15,7 +15,8 @@ exports.postRemoveMembers = async (req, res, next) => {
         selectedUserIds.forEach(async (selectedUserId)=>{
             await GroupMembers.destroy({
                 where:{
-                    id: selectedUserId
+                    id: selectedUserId,
+                    group_id: parseInt(currentGroup,10)
                 }
             }, {transaction: t});
         });

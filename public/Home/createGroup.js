@@ -15,6 +15,7 @@ btn.onclick = async function(e) {
         const users = response.data.users;
         var userList = document.getElementById("userList");
         userList.innerHTML = ""; // Clear existing users
+        const creatorName = localStorage.getItem('name');
         users.forEach(function(user) {
             var checkbox = document.createElement("input");
             checkbox.type = "checkbox";
@@ -34,6 +35,10 @@ btn.onclick = async function(e) {
             userList.appendChild(newDiv);
             
             userList.appendChild(document.createElement("br"));
+            if (user.name === creatorName) {
+                checkbox.checked = true; // Check the checkbox
+                checkbox.disabled = true; // Disable the checkbox
+            }
         });
         var createGroupBtn = document.getElementById("create-group-btn");
         var groupName = document.getElementById("groupName");

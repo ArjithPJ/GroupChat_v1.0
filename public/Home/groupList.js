@@ -33,6 +33,7 @@ groupList.addEventListener("click", async function(event) {
     const modal = document.getElementById('myModal-editgroup');
     const closeBtn = modal.querySelector('.close-editGroup');
 
+
     
     
     adminButton.onclick =async function(e){
