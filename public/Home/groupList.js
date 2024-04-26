@@ -39,7 +39,7 @@ groupList.addEventListener("click", async function(event) {
     adminButton.onclick =async function(e){
         e.preventDefault();
         modal.style.display = "block";
-        // const response = await axios.get(`http://localhost:3000/getMembers?group_id=${groupId}`,{
+        // const response = await axios.get(`http://23.22.247.49:3000/getMembers?group_id=${groupId}`,{
         //     validateStatus: function (status) {
         //         return status >= 200 && status < 500; // Accept only status codes between 200 and 499
         //     }
@@ -83,7 +83,7 @@ groupList.addEventListener("click", async function(event) {
     // Function to fetch chats
     const fetchChats = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/getChats?group_id=${groupId}&token=${token}`, {
+            const response = await axios.get(`http://23.22.247.49:3000/getChats?group_id=${groupId}&token=${token}`, {
                 validateStatus: function(status) {
                     return status >= 200 && status < 500; // Accept only status codes between 200 and 499
                 }
