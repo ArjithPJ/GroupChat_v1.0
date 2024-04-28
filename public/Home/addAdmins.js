@@ -31,7 +31,7 @@ newAdminMembers.addEventListener('change', function(){
 newAdminMembers.addEventListener('click', async function() {
     try{
         const currentGroup = localStorage.getItem('currentGroup');
-        const response = await axios.get(`http://localhost:3000/getMembers?group_id=${currentGroup}`);
+        const response = await axios.get(`http://23.22.247.49:3000/getMembers?group_id=${currentGroup}`);
         if(response.status === 200){
             const members = response.data.users;
             newAdminMembers.innerHTML=`<option value="0" selected>Select</option>`;
@@ -80,7 +80,7 @@ async function addAdmins(selectedUserIds, selectedUserNames) {
             currentGroup: currentGroup
         };
         
-        const response = await axios.post('http://localhost:3000/add-admins', details);
+        const response = await axios.post('http://23.22.247.49:3000/add-admins', details);
         if(response.status === 200){
             console.log("Admins added");
             localStorage.setItem('Darkknight', 200);

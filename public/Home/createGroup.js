@@ -6,7 +6,7 @@ var span = document.getElementsByClassName("close")[0];
 btn.onclick = async function(e) {
     e.preventDefault();
     modal.style.display = "block";
-    const response = await axios.get('http://localhost:3000/getUsers',{
+    const response = await axios.get('http://23.22.247.49:3000/getUsers',{
         validateStatus: function (status) {
             return status >= 200 && status < 500; // Accept only status codes between 200 and 499
         }
@@ -76,7 +76,7 @@ btn.onclick = async function(e) {
             }
             // Send data to server
             try {
-                const response = await axios.post('http://localhost:3000/createGroup', {
+                const response = await axios.post('http://23.22.247.49:3000/createGroup', {
                     groupName: groupName.value,
                     selectedUsers: selectedUsers,
                     selectedUsernames: selectedUsernames,

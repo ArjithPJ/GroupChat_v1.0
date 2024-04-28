@@ -47,7 +47,7 @@ const fetchChats = async () => {
         const token = localStorage.getItem('token');
         const adminButton = document.getElementById('add-members');
 
-        const response = await axios.get(`http://localhost:3000/getChats?group_id=${groupId}&token=${token}`, {
+        const response = await axios.get(`http://23.22.247.49:3000/getChats?group_id=${groupId}&token=${token}`, {
             validateStatus: function (status) {
                 return status >= 200 && status < 500; // Accept only status codes between 200 and 499
             }
