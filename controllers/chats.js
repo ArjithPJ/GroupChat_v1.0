@@ -5,8 +5,22 @@ const GroupMembers = require('../models/groupMembers');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sequelize = require('../util/database');
+const socketIo = require('socket.io');
 
 require('dotenv').config();
+
+exports.initializeWebSocket = (io) => {
+    io.on('connection', (socket) => {
+        console.log('Client connected');
+
+        // Handle disconnections
+        socket.on('disconnect', () => {
+            console.log('Client disconnected');
+        });
+    });
+};
+
+
 
 exports.getGroups = async (req, res, next) => {
     try{
@@ -42,6 +56,12 @@ exports.postStoreChat = async (req, res, next) => {
             time: time
         }, {transaction: t});
         const chatList = await Chats.findAll({transaction: t});
+        
+        // Get the initialized WebSocket server instance
+        const io = req.app.locals.socketio; // Access io from app.locals
+
+        // Emit postStoreChat event to trigger frontend function
+        io.emit('fetchChats');
         await t.commit();
         res.status(200).json({message: "Chats successfully added", chats: chatList, success: true});
     }
@@ -161,4 +181,5 @@ exports.getMembers = async (req, res, next) => {
         res.status(500).json({success:false});
     }
 };
+
 
