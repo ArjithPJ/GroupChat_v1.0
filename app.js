@@ -25,6 +25,7 @@ const signupRoutes = require('./routes/signup');
 const loginRoutes = require('./routes/login');
 const chatsRoutes = require('./routes/chats');
 const adminRoutes = require('./routes/admin');
+const multimediaRoutes = require('./routes/multimedia');
 const ForgotPasswordRequests = require("./models/forgotPasswordRequests");
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 
@@ -40,6 +41,7 @@ app.use(signupRoutes);
 app.use(loginRoutes);
 app.use(chatsRoutes);
 app.use(adminRoutes);
+app.use(multimediaRoutes);
 
 // Create an HTTP server instance
 const server = http.createServer(app);

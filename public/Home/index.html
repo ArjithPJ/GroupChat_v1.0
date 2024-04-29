@@ -98,10 +98,10 @@
             </div>  
         </div>
         <div class="contents">
-            <div class="chats" id="chats">
-            </div>
+            <div class="chats" id="chats"></div>
             <div class="chat-container" style="display: none;">
                 <div id="message-container">
+                    <button id="upload-file-btn">📎</button>
                     <input id="message" type="text" placeholder="Type your message...">
                     <button id="send">➤</button>
                 </div>
@@ -109,8 +109,19 @@
         </div>
         
     </div>
+    <div id="file-upload-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Upload File</h2>
+            <div id="multi-media">
+                <input type="file" id="file-input" accept="image/*, video/*">
+            </div>
+            <br>
+            <button id="upload">Send</button>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
-    <script>const socket = io('http://23.22.247.49:3000');</script>
+    <script>const socket = io('http://localhost:3000');</script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="index.js"></script>
     <script src="createGroup.js"></script>
@@ -138,5 +149,7 @@
     <script src="addMembers.js"></script>
     <script src="removeMembers.js"></script>
     <script src="addAdmins.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1040.0.min.js"></script>
+    <script src="multimedia.js"></script>
 </body>
 </html>

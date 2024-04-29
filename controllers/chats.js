@@ -61,9 +61,10 @@ exports.postStoreChat = async (req, res, next) => {
         const io = req.app.locals.socketio; // Access io from app.locals
 
         // Emit postStoreChat event to trigger frontend function
-        io.emit('fetchChats');
+        
         await t.commit();
-        res.status(200).json({message: "Chats successfully added", chats: chatList, success: true});
+        await res.status(200).json({message: "Chats successfully added", chats: chatList, success: true});
+        io.emit('fetchChats');
     }
     catch(error){
         console.error(error);

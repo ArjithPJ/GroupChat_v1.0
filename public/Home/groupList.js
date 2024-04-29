@@ -8,6 +8,9 @@ async function showChats(chats, groupName) {
     chatsContainer.innerHTML = "";
     const name = localStorage.getItem('name');
 
+    // Regular expression to match URLs
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+
     // Add each chat message to the DOM
     chats.forEach(chat => {
         const testElement = document.querySelector('.chats');
@@ -19,7 +22,11 @@ async function showChats(chats, groupName) {
         }
         const p = document.createElement('p');
         p.className = 'message';
-        p.innerHTML = chat.chat
+
+        // Replace URLs in the message with clickable links
+        const messageWithLinks = chat.chat.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
+        p.innerHTML = messageWithLinks;
+
         const sender = document.createElement('span');
         sender.className = "sender-name";
         sender.innerHTML = chat.name;
@@ -35,19 +42,18 @@ async function showChats(chats, groupName) {
         chatsContainer.appendChild(chatElement);
 
     });
+    console.log("Chats is shown");
 }
 
+
 // Function to fetch chats
-const fetchChats = async () => {
+const fetchChats = async (groupId, groupName) => {
     try {
         console.log("Socket called fetch chats!!");
-        const clickedGroup = document.querySelector('.groupname.selected');
-        const groupName = clickedGroup.textContent;
-        const groupId = clickedGroup.id;
         const token = localStorage.getItem('token');
         const adminButton = document.getElementById('add-members');
 
-        const response = await axios.get(`http://23.22.247.49:3000/getChats?group_id=${groupId}&token=${token}`, {
+        const response = await axios.get(`http://localhost:3000/getChats?group_id=${groupId}&token=${token}`, {
             validateStatus: function (status) {
                 return status >= 200 && status < 500; // Accept only status codes between 200 and 499
             }
@@ -63,6 +69,7 @@ const fetchChats = async () => {
             if (localStorage.getItem('isAdmin') === 'false') {
                 adminButton.disabled = 'true';
             }
+            console.log("Chats", chats);
             await showChats(chats, groupName);
         } else {
             console.log("Response Status:", response.status);
@@ -76,7 +83,9 @@ const fetchChats = async () => {
 socket.on('fetchChats', async () => {
     // Call fetchChats function to update chats
     console.log("Socket Triggered");
-    await fetchChats();
+    const groupId = parseInt(localStorage.getItem('currentGroup'),10);
+    const groupName = localStorage.getItem('currentGroupName');
+    await fetchChats(groupId, groupName);
 });
 
 // Add a click event listener to the group list
@@ -84,6 +93,7 @@ groupList.addEventListener("click", async function (event) {
     const clickedGroup = event.target.closest("div.groupname");
     const groupName = clickedGroup.textContent;
     const groupId = clickedGroup.id;
+    console.log("Clicked gorpeID", groupId, groupName);
     const token = localStorage.getItem('token');
     chatContainer.style.display = 'block';
 
@@ -127,8 +137,9 @@ groupList.addEventListener("click", async function (event) {
 
     console.log("Clicked group:", clickedGroup);
     console.log("Token:", token);
+
     // Call fetchChats immediately and then every second
-    await fetchChats();
+    await fetchChats(groupId, groupName);
 
     if (!clickedGroup) return; // Ignore clicks outside of list items
 
