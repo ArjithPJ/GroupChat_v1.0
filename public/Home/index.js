@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
             
             try {
                 console.log("Message clicked");
-                const response = await axios.post("http://localhost:3000/storechat", messageDetails, {
+                const response = await axios.post("http://23.22.247.49:3000/storechat", messageDetails, {
                     validateStatus: function (status) {
                         return status >= 200 && status < 500; // Accept only status codes between 200 and 499
                     }
@@ -71,7 +71,7 @@ window.onload = function() {
 async function getGroups(){
     try{
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:3000/getGroups?token=${token}`,{
+        const response = await axios.get(`http://23.22.247.49:3000/getGroups?token=${token}`,{
             validateStatus: function (status) {
                 return status >= 200 && status < 500; // Accept only status codes between 200 and 499
             }

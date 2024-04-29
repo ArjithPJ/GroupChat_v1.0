@@ -57,7 +57,7 @@ uploadButton.addEventListener('click', async function uploadFile() {
 
         try {
             // Make a POST request to your backend endpoint using Axios
-            const response = await axios.post('http://localhost:3000/postDownload', formData, {
+            const response = await axios.post('http://23.22.247.49:3000/postDownload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

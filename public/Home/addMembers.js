@@ -11,7 +11,7 @@ async function searchMembers() {
     searchResultsContainer.style.display='block';
     
     // Make a request to your backend API to search for members
-    const response = await axios.get(`http://localhost:3000/search-users?searchInput=${searchInput}`);
+    const response = await axios.get(`http://23.22.247.49:3000/search-users?searchInput=${searchInput}`);
     console.log("Users:", response.data);
     const data = await response.data.users;
     console.log("Data:", data);
@@ -109,7 +109,7 @@ async function addMembers() {
         const currentGroup = localStorage.getItem('currentGroup');
         const currentGroupName = localStorage.getItem('currentGroupName');
         // Make a request to your backend API to add members using axios.post
-        const response = await axios.post('http://localhost:3000/add-members', {
+        const response = await axios.post('http://23.22.247.49:3000/add-members', {
             memberIds: memberIds,
             memberNames: memberNames,
             currentGroup: currentGroup,

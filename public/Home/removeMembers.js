@@ -47,7 +47,7 @@ selectMembers.addEventListener('click', async function() {
     // Make a request to your backend API to get members
     const currentGroup = localStorage.getItem('currentGroup');
     selectMembers.innerHTML=`<option value="0" selected>Select</option>`;
-    await axios.get(`http://localhost:3000/getMembers?group_id=${currentGroup}`)
+    await axios.get(`http://23.22.247.49:3000/getMembers?group_id=${currentGroup}`)
         .then(response => {
             const members = response.data.users;
             console.log(response.data.users); // Assuming the response contains an array of member objects
@@ -95,7 +95,7 @@ async function removeMembers(selectedUserIds, selectedUserNames) {
             selectedUserNames: selectedUserNames,
             currentGroup: currentGroup
         };
-        const response = await axios.post('http://localhost:3000/remove-members', details);
+        const response = await axios.post('http://23.22.247.49:3000/remove-members', details);
         if(response.status ===200){
             console.log("Members removed");
             console.log("Response status", response.status);
