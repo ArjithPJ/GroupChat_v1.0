@@ -324,6 +324,11 @@ h2{
     cursor: not-allowed; /* Cursor style */
 }
 
+.small-image{
+    width: 100px;
+    padding: 50 px;
+}
+
 
 
 

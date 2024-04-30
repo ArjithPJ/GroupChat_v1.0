@@ -8,24 +8,36 @@ async function showChats(chats, groupName) {
     chatsContainer.innerHTML = "";
     const name = localStorage.getItem('name');
 
+    // Regular expression to match image URLs
+    const imageRegex = /(https?:\/\/[^\s]+\.(?:png|jpg|jpeg|gif|bmp))/gi;
     // Regular expression to match URLs
     const urlRegex = /(https?:\/\/[^\s]+)/g;
 
     // Add each chat message to the DOM
-    chats.forEach(chat => {
-        const testElement = document.querySelector('.chats');
+    for (const chat of chats) {
         const chatElement = document.createElement('div');
         if (chat.name === name) {
             chatElement.classList.add("chat-bubble", "outgoing");
         } else {
             chatElement.classList.add("chat-bubble", "incoming");
         }
-        const p = document.createElement('p');
-        p.className = 'message';
+
+        // Check if the message contains an image URL
+        if (imageRegex.test(chat.chat)) {
+            // If it's an image URL, create an img element
+            const imageUrl = chat.chat.match(imageRegex)[0];
+            const imgElement = document.createElement('img');
+            imgElement.src = imageUrl;
+            imgElement.classList.add('chat-image', 'small-image'); // Add custom styling for smaller images
+            chatElement.appendChild(imgElement);
+        }
 
         // Replace URLs in the message with clickable links
+        const p = document.createElement('p');
+        p.className = 'message';
         const messageWithLinks = chat.chat.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
         p.innerHTML = messageWithLinks;
+        chatElement.appendChild(p);
 
         const sender = document.createElement('span');
         sender.className = "sender-name";
@@ -33,17 +45,17 @@ async function showChats(chats, groupName) {
         const span = document.createElement('span');
         span.className = 'timestamp';
         chatElement.appendChild(sender);
-        chatElement.appendChild(p);
         chatElement.appendChild(span);
         const time = new Date(chat.time);
         const hours = time.getHours();
         const minutes = time.getMinutes();
         span.innerHTML = `${hours}:${minutes}`;
         chatsContainer.appendChild(chatElement);
-
-    });
-    console.log("Chats is shown");
+    }
+    console.log("Chats are shown");
 }
+
+
 
 
 // Function to fetch chats
